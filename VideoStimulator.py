@@ -1,4 +1,4 @@
-from moviepy import VideoFileClip, clips_array
+from moviepy import VideoFileClip, clips_array, CompositeVideoClip
 import streamlit as st
 
 def combine_videos(input_file):
