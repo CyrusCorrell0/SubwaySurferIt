@@ -7,12 +7,12 @@ def combine_videos(input_file):
 
     new_height = top_clip.size[1] // 2
     scale_factor = new_height / float(top_clip.size[1])
-    top_clip_resized = top_clip.resize(scale_factor)
+    top_clip_resized = top_clip.resized(scale_factor)
 
     if top_clip.duration > bottom_clip.duration:
         bottom_clip = bottom_clip.loop(duration=top_clip.duration)
 
-    bottom_clip_resized = bottom_clip.resize(width=top_clip_resized.w)
+    bottom_clip_resized = bottom_clip.resized(width=top_clip_resized.w)
 
     final = clips_array([[top_clip_resized], [bottom_clip_resized]])
     final.write_videofile("output.mp4", codec="libx264")
