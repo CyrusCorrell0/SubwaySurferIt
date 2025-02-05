@@ -1,6 +1,5 @@
 from moviepy import VideoFileClip, clips_array, CompositeVideoClip
 import streamlit as st
-import ffmpeg
 import imageio
 import subprocess
 
