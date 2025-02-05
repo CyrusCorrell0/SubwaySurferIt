@@ -1,6 +1,12 @@
-from moviepy import *
+from moviepy import VideoFileClip, clips_array, CompositeVideoClip
 import streamlit as st
 import ffmpeg
+import imageio
+import subprocess
+
+def convert_video(input_path, output_path):
+    command = f"ffmpeg -i {input_path} -c:v libx264 -crf 23 -preset fast -c:a aac -b:a 128k {output_path}"
+    subprocess.run(command, shell=True, check=True)
 def combine_videos(input_file):
     top_clip = VideoFileClip(input_file)
     bottom_clip = VideoFileClip("Subway.mp4")
@@ -30,7 +36,7 @@ def combine_videos(input_file):
 def main():
     st.title("Subway Surfer It!")
     st.subheader("Lecture videos too boring? Need a way to make videos more engaging? SubwaySurferIt!\n\nThis app serves as a byproduct of ongoing work building agentic AI for short form video automation.")
-    uploaded_file = st.file_uploader("Upload your video")
+    uploaded_file = st.file_uploader("Upload your video",type=['mp4'])
     st.text("Made with love by Cyrus Correll")
     if not uploaded_file:
         st.button("Upload Media To Begin", disabled=True)
@@ -54,6 +60,7 @@ def main():
         if st.button("Subway Surfer It!"):
             with open("temp_input.mp4", "wb") as f:
                 f.write(uploaded_file.read())
+            convert_video("temp_input.mp4","temp_input.mp4")
             combine_videos("temp_input.mp4")
             progress_bar=st.progress(0)
             for i in range(101):

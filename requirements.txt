@@ -1,3 +1,5 @@
 moviepy
 streamlit
 ffmpeg-python
+imageio[ffmpeg]
+subprocess
