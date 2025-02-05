@@ -1,10 +1,9 @@
 from moviepy import *
 import streamlit as st
-import time
 def combine_videos(input_file):
     top_clip = VideoFileClip(input_file)
     bottom_clip = VideoFileClip("Subway.mp4")
-    final_clip = "output.mp4";
+    final_clip = VideoFileClip("input_file")
     new_height = top_clip.size[1] // 2
     scale_factor = new_height / float(top_clip.size[1])
     top_clip_resized = top_clip.resized(scale_factor)
