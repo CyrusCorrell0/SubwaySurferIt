@@ -19,8 +19,9 @@ def combine_videos(input_file):
         final_clip = concatenate_videoclips(repeated_clips, method="compose")
 
         # Trim the final concatenated clip to the desired duration
-        final_clip = final_clip.subclip(0, top_clip.duration)
-
+        final_clip = final_clip.subclipped(0, top_clip.duration)
+    elif bottom_clip.duration >top_clip.duration:
+        bottom_clip = bottom_clip.subclipped(0,top_clip.duration)
     bottom_clip_resized =final_clip.resized(width=top_clip_resized.w)
 
     final = clips_array([[top_clip_resized], [bottom_clip_resized]])
