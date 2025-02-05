@@ -53,7 +53,7 @@ def main():
         )
         if st.button("Subway Surfer It!"):
             print(uploaded_file)
-            combine_videos(str(uploaded_file))
+            combine_videos(uploaded_file.name)
             progress_bar=st.progress(0)
             for i in range(101):
                 time.sleep(0.01)
