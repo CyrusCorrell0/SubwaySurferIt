@@ -1,4 +1,4 @@
-from moviepy.editor import VideoFileClip, clips_array
+from moviepy import VideoFileClip, clips_array
 import streamlit as st
 
 def combine_videos(input_file):
@@ -10,9 +10,18 @@ def combine_videos(input_file):
     top_clip_resized = top_clip.resized(scale_factor)
 
     if top_clip.duration > bottom_clip.duration:
-        bottom_clip = bottom_clip.loop(duration=top_clip.duration)
+        num_repeats = int(bottom_clip.duration / top_clip.duration) + 1
 
-    bottom_clip_resized = bottom_clip.resized(width=top_clip_resized.w)
+        # Create a list of repeated video clips
+        repeated_clips = [bottom_clip] * num_repeats
+
+        # Concatenate the repeated clips to create the final video
+        final_clip = concatenate_videoclips(repeated_clips, method="compose")
+
+        # Trim the final concatenated clip to the desired duration
+        final_clip = final_clip.subclip(0, top_clip.duration)
+
+    bottom_clip_resized =final_clip.resized(width=top_clip_resized.w)
 
     final = clips_array([[top_clip_resized], [bottom_clip_resized]])
     final.write_videofile("output.mp4", codec="libx264")
