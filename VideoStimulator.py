@@ -52,9 +52,8 @@ def main():
             unsafe_allow_html=True
         )
         if st.button("Subway Surfer It!"):
-            with open("temp_input.mp4", "wb") as f:
-                f.write(uploaded_file.read())
-            combine_videos("temp_input.mp4")
+            print(uploaded_file)
+            combine_videos(str(uploaded_file))
             progress_bar=st.progress(0)
             for i in range(101):
                 time.sleep(0.01)
